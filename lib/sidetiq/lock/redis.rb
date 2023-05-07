@@ -56,7 +56,7 @@ module Sidetiq
           acquired = false
 
           watch(redis, key) do
-            if !redis.exists(key)
+            if !redis.exists?(key)
               acquired = !!redis.multi do |multi|
                 meta = MetaData.for_new_lock(key)
                 multi.psetex(key, timeout, meta.to_json)
